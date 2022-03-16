@@ -7,13 +7,13 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using ThesisManagement.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ThesisManagement.Models;
 
 namespace ThesisManagement.Areas.Identity.Pages.Account
 {
@@ -61,20 +61,6 @@ namespace ThesisManagement.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
-            [Display(Name = "Display Name")]
-            [Required(ErrorMessage = "{0} cannot be empty.")]
-            [MinLength(2, ErrorMessage = "{0} should have at least {1} characters.")]
-            [StringLength(60, ErrorMessage = "{0} cannot have more than {1} characters.")]
-            public string DisplayName { get; set; }
-
-            [Display(Name = "Date of Birth")]
-            [Required]
-            public DateTime DateOfBirth { get; set; }
-
-            [Display(Name = "Is Admin User?")]
-            [Required]
-            public bool IsAdminUser { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -89,14 +75,7 @@ namespace ThesisManagement.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new MyIdentityUser
-                {
-                    UserName = Input.Email,
-                    Email = Input.Email,
-                    DisplayName = Input.DisplayName,
-                    DateOfBirth = Input.DateOfBirth,
-                    IsAdminUser = Input.IsAdminUser
-                };
+                var user = new MyIdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

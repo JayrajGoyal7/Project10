@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ThesisManagement.Data;
+using ThesisManagement.Models;
 
 [assembly: HostingStartup(typeof(ThesisManagement.Areas.Identity.IdentityHostingStartup))]
 namespace ThesisManagement.Areas.Identity
