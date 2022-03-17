@@ -1,10 +1,11 @@
-﻿using System;
-using System.Net;
-using System.Net.Mail;
-using System.Threading.Tasks;
+﻿using ThesisManagement.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 
 namespace ThesisManagement.Services
@@ -12,6 +13,7 @@ namespace ThesisManagement.Services
     public class MyEmailSender
         : IEmailSender
     {
+
         private readonly IConfiguration _config;
         private readonly ILogger<MyEmailSender> _logger;
 
@@ -33,7 +35,7 @@ namespace ThesisManagement.Services
         /// <param name="subject">Subject of the Email</param>
         /// <param name="htmlMessage">HTML Text for the Email</param>
         /// <returns>Task to indicate if email was successfully sent.</returns>
-        /// <exception cref="GuniApp.Web.Services.MyEmailSenderException" />
+        /// <exception cref="ThesisManagement.Services.MyEmailSenderException" />
         /// <example>
         /// <![CDATA[
         ///     SendEmailAsync("demo@abc.com", "hello", "<p>Hello World</p>");
@@ -43,6 +45,14 @@ namespace ThesisManagement.Services
         public Task SendEmailAsync(
             string email, string subject, string htmlMessage)
         {
+            // Check if sending emails feature is enabled.
+            var sendEmails = _config.GetValue<bool>("MySmtpSettings:SendEmails");
+            if (!sendEmails)
+            {
+                // If not enabled, let's treat the task as completed.
+                return Task.CompletedTask;
+            }
+
             var smtpServer = _config.GetValue<string>("MySmtpSettings:SmtpServer");
             var smtpServerSSL = _config.GetValue<bool>("MySmtpSettings:SmtpServerSSL");
             var smtpPort = _config.GetValue<int>("MySmtpSettings:SmtpPort");
@@ -105,5 +115,6 @@ namespace ThesisManagement.Services
         }
 
         #endregion
+
     }
 }

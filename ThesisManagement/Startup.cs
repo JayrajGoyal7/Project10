@@ -1,3 +1,4 @@
+using ThesisManagement.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ThesisManagement.Data;
 using ThesisManagement.Models;
-using ThesisManagement.Services;
 
 namespace ThesisManagement
 {
@@ -74,7 +75,9 @@ namespace ThesisManagement
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger,
+            UserManager<MyIdentityUser> userManager,
+            RoleManager<MyIdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {

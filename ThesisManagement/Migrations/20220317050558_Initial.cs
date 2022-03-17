@@ -29,7 +29,6 @@ namespace ThesisManagement.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DisplayName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "smalldatetime", nullable: false),
-                    IsAdminUser = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

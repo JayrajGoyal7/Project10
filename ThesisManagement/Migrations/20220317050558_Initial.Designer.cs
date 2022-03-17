@@ -10,7 +10,7 @@ using ThesisManagement.Data;
 namespace ThesisManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220315060136_Initial")]
+    [Migration("20220317050558_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,9 +195,6 @@ namespace ThesisManagement.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsAdminUser")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")

@@ -6,8 +6,7 @@ namespace ThesisManagement.Services
         : ApplicationException
     {
 
-        private const string StandardERRORMESSAGE
-            = "Something went wrong while sending the email.";
+        private const string StandardERRORMESSAGE = "Something went wrong while sending the email.";
 
         public MyEmailSenderException()
             : base(StandardERRORMESSAGE)
